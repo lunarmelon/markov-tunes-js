@@ -81,7 +81,7 @@ const synth = new Tone.Synth().toDestination();
 const playButton = document.getElementById("playBtn");
 const noteButtons = document.querySelectorAll(".note-box");
 
-// Choose next note based on these explicit probabilities
+// Choose next note based on the transition matrix
 function chooseNextNote(current) {
 	const transitions = TRANSITION_MATRIX[current];
 	const options = Object.keys(transitions);
@@ -112,7 +112,7 @@ async function playNote(note) {
 	setTimeout(() => btn?.classList.remove("active"), 500);
 }
 
-// Generate full Markov melody
+// Generate Markov tune
 async function generateMelody(start = "Do", length = 20) {
 	playButton.disabled = true;
 	for (const btn of noteButtons) {
@@ -132,7 +132,6 @@ async function generateMelody(start = "Do", length = 20) {
 	}
 }
 
-// Event handlers
 playButton.addEventListener("click", () => generateMelody("Do", 25));
 for (const btn of noteButtons) {
 	btn.addEventListener("click", () => {
